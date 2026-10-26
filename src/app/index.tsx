@@ -1,98 +1,75 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text, View, StyleSheet, Image, Pressable } from "react-native";
+import { useRouter} from "expo-router";
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+export default function Index() {
+const router = useRouter();
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <View style={styles.container}>
+      <Image source={require("../../assets/app-images/ChallengeApp.png")} style={styles.image} />
+  <View style={styles.spacer} />
+      <View style={styles.spacer} />
+      <View style={styles.spacer} />
+      <View style={styles.spacer} />
+      <Image source={require("../../assets/app-images/pionter.png")} style={styles.imagelogo} />
+      <Text style={styles.title}>Welcome to the Challenge Resolver!</Text>
+      <View style={styles.spacer} />
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+        <Pressable style={styles.button} onPress={() => router.push("/login")}>
+          <Text style={styles.buttonText}>Log in here!</Text>
+        </Pressable>
+      <View style={styles.spacer} />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
   title: {
-    textAlign: 'center',
+    fontSize: 24,
+    textAlign: "center",
+    fontWeight: "bold",
+    marginBottom: 20,
+    color: "#eccaff",
+    textShadowColor: "rgba(0, 0, 0, 0.88)",
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 6,
   },
-  code: {
-    textTransform: 'uppercase',
+  image: {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  width: "120%",
+  height: "100%",
+  resizeMode: "cover",
+},
+  button: {
+    backgroundColor: "#b578f6cf",
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 20,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    textAlign: "center",
+  },
+  spacer: {
+    flex: 1,
+  },
+  imagelogo: {
+    width: 90,
+    height: 90,
+    borderRadius: 100,
+    borderColor: "#c77eee",
+    marginBottom: 20,
   },
 });
+
+
