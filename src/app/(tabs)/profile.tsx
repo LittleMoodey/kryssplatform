@@ -7,7 +7,7 @@ export default function Profile() {
 
   return (
     <View style={styles.container}>
-      <Image source={require("../../../assets/app-images/profil.png")} style={styles.background} />
+      <Image source={require("../../../assets/app-images/profil-rom.png")} style={styles.background} />
       <View style={styles.overlay} />
       <Image source={require("../../../assets/app-images/profile.png")} style={styles.image} />
       <Text style={styles.title}>Your profile</Text>
