@@ -41,6 +41,12 @@ This command will move the starter code to the **example** directory and create 
 - If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
 - Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
 
+### Distance utility tests
+
+Run `npm test` with Node.js 22.18 or newer. These tests use Node's built-in test
+runner and TypeScript support, so no extra test dependencies are needed. Run
+`npx tsc --noEmit` separately to check TypeScript types.
+
 ## Learn more
 
 To learn more about developing your project with Expo, look at the following resources:
