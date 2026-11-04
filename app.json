@@ -26,7 +26,7 @@
       "package": "com.marian96.ChallengeResolver"
     },
     "web": {
-      "output": "server",
+      "output": "single",
       "favicon": "./assets/app-images/app-icon.png"
     },
     "plugins": [
@@ -43,6 +43,13 @@
         "expo-location",
         {
           "locationWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location to verify challenges."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos to use them as challenge evidence.",
+          "cameraPermission": "Allow $(PRODUCT_NAME) to use the camera to take challenge evidence photos."
         }
       ]
     ],
