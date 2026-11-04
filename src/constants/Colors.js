@@ -1,4 +1,3 @@
-
 export const Colors = {
   // Brand colors
   primary: "#34E0A1",
@@ -89,4 +88,4 @@ export const Colors = {
     error: "#B42318",
     errorBackground: "#FFF0EE",
   },
-} as const;
+};
