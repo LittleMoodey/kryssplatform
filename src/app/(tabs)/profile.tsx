@@ -1,22 +1,50 @@
-import { Link } from "expo-router";
-import { Text, View, StyleSheet, Button, Image, Pressable } from "react-native";
+//import { Link } from "expo-router";
+import { View, StyleSheet, Image, } from "react-native";
+import AppButton from "../../components/AppButton";
+import ThemedText from "../../components/ThemedText";
 import { useRouter } from "expo-router";
+import { Colors } from "../../constants/Colors";
+import ThemedView from "../../components/ThemedView";
 
 export default function Profile() {
     const router = useRouter();
 
   return (
-    <View style={styles.container}>
+    <ThemedView style={styles.container}>
       <Image source={require("../../../assets/app-images/profil-rom.png")} style={styles.background} />
       <View style={styles.overlay} />
       <Image source={require("../../../assets/app-images/profile.png")} style={styles.image} />
-      <Text style={styles.title}>Your profile</Text>
-      <Text style={styles.subtitle}>This is where you can manage your profile settings and view your activity.</Text>
+     
+      <View style={styles.topCard}>
+          <View style={[styles.card]}>
+            <ThemedText style={styles.subtitle}> 1 </ThemedText>
+            <ThemedText style={styles.label}> Completed </ThemedText>
+          </View>
 
-      <Pressable style={styles.button} onPress={() => router.push("/login")}>
-          <Text style={styles.buttonText}>Log Out</Text>
-        </Pressable>
-    </View>
+          <View style={[styles.card]}>
+            <ThemedText style={styles.subtitle}> 2 </ThemedText>
+            <ThemedText style={styles.label}> Created </ThemedText>
+          </View>
+
+          <View style={[styles.card]}>
+            <ThemedText style={styles.subtitle}> 200 </ThemedText>
+            <ThemedText style={styles.label}> Points </ThemedText>
+          </View>
+          
+          <View style={[styles.card]}>
+            <ThemedText style={styles.subtitle}> 2 </ThemedText>
+            <ThemedText style={styles.label}> Friends </ThemedText>
+          </View>
+    </View> 
+    {/* topCard end */}
+
+      <AppButton 
+      style={styles.button}
+       title="Log Out" 
+       onPress={() => router.push("/login")} 
+       />
+
+    </ThemedView>
   );
 }
 
@@ -30,33 +58,36 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: "center",
     fontWeight: "bold",
-    marginBottom: 20,
-    color: "#b546f1",
+    color: Colors.light.text,
+  },
+  label: {
+    fontSize: 13,
+    textAlign: "center",
+    color: Colors.light.mutedText,
   },
   subtitle: {
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 20,
-    color: "#b546f1",
+    color: Colors.light.text,
   },
   image: {
     width: 200,
     height: 200,
     borderRadius: 100,
     borderWidth: 2,
-    borderColor: "#c77eee",
+    borderColor: Colors.light.iconColorFocused,
     marginBottom: 20,
   },
   background: {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  width: "130%",
-  height: "100%",
-  resizeMode: "cover",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: "130%",
+    height: "100%",
+    resizeMode: "cover",
   },
   overlay: {
     position: "absolute",
@@ -64,19 +95,27 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "rgba(255, 255, 255, 0.4)",
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
   },
-  buttonText: {
-    color: "#fff",
+  button:{
     fontSize: 16,
     textAlign: "center",
   },
-  button: {
-    backgroundColor: "#a85ef7",
+  card: {
+    backgroundColor: Colors.light.cardBackground,
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 10,
     marginBottom: 20,
+    alignItems: "center",
+    width: "20%",
+    
   },
+  topCard: {
+    display: "flex", 
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 10,
+  }
 });
 
 

@@ -1,4 +1,5 @@
-import { Pressable, StyleSheet, View } from "react-native";
+import { Image, Pressable, StyleSheet, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import ThemedText from "./ThemedText";
 import { useAppColors } from "../hooks/useAppColors";
 
@@ -11,12 +12,12 @@ const ChallengeCard = ({ challenge, status = "not-started", onPress }) => {
 
   const statuses = {
     "not-started": {
-      label: "Not Started",
+      label: "Not started",
       background: theme.uiBackground,
       color: theme.mutedText,
     },
     "in-progress": {
-      label: "In Progress",
+      label: "In progress",
       background: theme.warningBackground,
       color: theme.warningText,
     },
@@ -37,84 +38,97 @@ const ChallengeCard = ({ challenge, status = "not-started", onPress }) => {
       accessibilityLabel={`${challenge.title}, ${currentStatus.label}`}
       style={({ pressed }) => [
         styles.card,
-        {
-          backgroundColor: theme.cardBackground,
-          borderColor: theme.border,
-        },
+        { backgroundColor: theme.cardBackground, borderColor: theme.border },
         pressed && { opacity: 0.8 },
       ]}
     >
-      <View style={styles.header}>
-        <ThemedText title style={styles.title}>
+      {/* VENSTRE: bilde */}
+      {challenge.imageUrl && (
+        <Image
+          source={{ uri: challenge.imageUrl }}
+          style={styles.image}
+          resizeMode="cover"
+        />
+      )}
+
+      {/* HØYRE: tekst */}
+      <View style={styles.info}>
+        <ThemedText title numberOfLines={2} style={styles.title}>
           {challenge.title}
         </ThemedText>
 
-        <View
-          style={[styles.badge, { backgroundColor: currentStatus.background }]}
-        >
-          <ThemedText
-            style={[styles.badgeText, { color: currentStatus.color }]}
-          >
-            {currentStatus.label}
-          </ThemedText>
+        {/* Beskrivelse */}
+        <ThemedText muted numberOfLines={1} style={styles.small}>
+          {challenge.description}
+        </ThemedText>
+
+        {/* Nederste rad: avstand til venstre, status til høyre */}
+        <View style={styles.bottomRow}>
+          {typeof challenge.distance === "number" ? (
+            <View style={styles.row}>
+              <Ionicons name="location-outline" size={14} color={theme.mutedText} />
+              <ThemedText style={styles.small}>{challenge.distance} km</ThemedText>
+            </View>
+          ) : (
+            <View />
+          )}
+
+          <View style={[styles.badge, { backgroundColor: currentStatus.background }]}>
+            <ThemedText style={[styles.badgeText, { color: currentStatus.color }]}>
+              {currentStatus.label}
+            </ThemedText>
+          </View>
+
         </View>
       </View>
-
-      <ThemedText muted numberOfLines={2} style={styles.description}>
-        {challenge.description}
-      </ThemedText>
-
-      {typeof challenge.completionRadius === "number" && (
-        <ThemedText style={styles.location}>
-          📍 {challenge.completionRadius} m completion radius
-        </ThemedText>
-      )}
-
-      <ThemedText style={[styles.link, { color: theme.iconColorFocused }]}>
-        View Challenge ›
-      </ThemedText>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    padding: 16,
+    flexDirection: "row", 
+    alignItems: "center",
+    padding: 12,
     borderRadius: 16,
     borderWidth: 1,
-    gap: 12,
+    gap: 14,
   },
-  header: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    justifyContent: "space-between",
-    gap: 8,
+  image: {
+    width: 90,
+    height: 90,
+    borderRadius: 12,
+  },
+  info: {
+    flex: 1, 
+    gap: 6,
   },
   title: {
-    flex: 1,
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: "600",
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  small: {
+    fontSize: 13,
+  },
+  bottomRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between", 
+    marginTop: 2,
   },
   badge: {
     paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 20,
+    paddingVertical: 4,
+    borderRadius: 8,
   },
   badgeText: {
-    fontSize: 11,
-    fontWeight: "600",
-  },
-  description: {
-    fontSize: 14,
-    lineHeight: 21,
-  },
-  location: {
     fontSize: 12,
-  },
-  link: {
-    fontSize: 14,
     fontWeight: "600",
-    marginTop: 4,
   },
 });
 
